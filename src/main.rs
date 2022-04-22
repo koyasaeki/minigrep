@@ -4,7 +4,7 @@ use std::io::Read;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
-    let config = parse_config(&args);
+    let config = Config::new(&args);
 
     let mut f = File::open(config.filename).expect("file not found");
 
@@ -20,9 +20,11 @@ struct Config {
     filename: String,
 }
 
-fn parse_config(args: &[String]) -> Config {
-    let query = args[1].clone();
-    let filename = args[2].clone();
+impl Config {
+    fn new(args: &[String]) -> Config {
+        let query = args[1].clone();
+        let filename = args[2].clone();
 
-    Config { query, filename }
+        Config { query, filename }
+    }
 }
